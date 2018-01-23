@@ -1,7 +1,14 @@
-FROM node:9-alpine
+FROM node:9-alpine as angular-cli
 
-LABEL maintainer="Sebastian Wegert <swe@covis.de>"
+LABEL authors="Sebastian Wegert"
 
-ARG NG_CLI_VERSION=v1.6.5
+#Linux setup
+RUN apk update \
+  && apk add --update alpine-sdk \
+  && apk del alpine-sdk \
+  && rm -rf /tmp/* /var/cache/apk/* *.tar.gz ~/.npm \
+  && npm cache verify \
+  && sed -i -e "s/bin\/ash/bin\/sh/" /etc/passwd
 
-RUN npm install -g @angular/cli@$NG_CLI_VERSION
+#Angular CLI
+RUN npm install -g @angular/cli@1.6.5
