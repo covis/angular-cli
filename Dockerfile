@@ -1,4 +1,4 @@
-FROM node:9-alpine as angular-cli
+FROM node:lts-alpine as angular-cli
 
 LABEL authors="Sebastian Wegert"
 
